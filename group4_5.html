@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.min.js"></script>
+
+    <title>Assignment 4 / 5</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/jumbotron.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	
+	<style>
+		#background{ 
+			background-image: url('fishingBackgroundb.jpg');
+			background-repeat: repeat-y;
+			background-attachment: scroll;
+			background-size: 100%;
+            background-color: gainsboro;
+		}
+		#chart{
+			margin: auto;
+            overflow: auto;
+			width: 100%;
+            max-height: 700px;
+		}
+        #chart2{
+            background-color: gainsboro;
+            padding: 10px;
+        }
+        #output{
+            width: 100%;
+        }
+		table{
+			margin: auto;
+			background-color: rgba(255,255,255,0.5);
+			border-radius: 25px;
+            width: 75%
+		}
+		td,tr{
+			padding: 10px 30px 5px 30px;
+			text-align: center;
+		}
+        th{
+			padding: 20px 30px 5px 30px;
+			text-align: center;
+        }
+		#mychart{
+			width: 400px;
+			height: 400px;
+		}
+        .row{
+            text-align: center;
+        }
+        .jumbotron{
+            text-align: center;
+        }
+        .col-md-4{
+            padding-bottom: 25px;
+        }
+        #myPieChart{
+            padding-bottom: 10px;
+        }
+	</style>	
+  </head>
+
+  <body id="background">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Assignment 4 / 5</a>
+        </div>
+        
+      </div>
+    </nav>
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1>Fishing Licenses</h1>
+        <p>This page shows the results of fishing licenses sold in Hennepin & Ramsey County</p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        <h1>Welcome</h1>
+        <p>Welcome to the Hennepin/Ramsey fishing license counter. If you are anything like us, you have always wondered where the best fishing is and what type of fish is the most popular! On this page you will be able to see the number of fishing licenses sold based on year, county, and type of fish.</p>
+        <p>This data was gathered by the data.gov website. We are providing this to you from the fishingLicenses.js file stored on our server. This data was collected between the years of 2006 and 2011. We believe this data is important because it can help the MN DNR and the average Joe learn where the most popular fish are located.</p>
+        <div class="col-md-4">
+          <h2>County</h2>
+          <p>Sort by County</p>
+          <button onclick="myFunction2()">Search &raquo;</button>
+       </div>
+        <div class="col-md-4">
+          <h2>Fish</h2>
+          <p>Sort by type of Fish</p>
+          <button onclick="myFunction3()">Search &raquo;</button>
+        </div>
+        <div class="col-md-4">
+          <h2>Year</h2>
+          <p>Sort by Year </p>
+            <button onclick="myFunction()">Search &raquo;</button>
+        </div>
+      </div>
+	  <div id="chart">
+		<div id="output"></div>
+	  </div>
+        <br />
+        <div id="chart2">
+        <h3 style="text-align: center;">Total Number of Fish Licenses sold by Year:</h3>
+        <canvas id="myChart" width="200" height="200"></canvas>
+        <h3 style="text-align: center;">Total Fish Licenses sold between 2006 - 2011 by County:</h3>
+        <canvas id="myPieChart" width="200" height="200"></canvas>
+        <h3 style="text-align: center;">Total Number of Licenses sold by Fish Type:</h3>
+        <canvas id="myChart2" width="200" height="200"></canvas>
+       </div><!-- chart2-->
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+	<script src="fishingLicense.js"></script>
+	<script onload="myFunction2()">
+        function myFunction2() {
+		var output ="";
+		var output = "<table>" + "<tr>" + "<th> County </th>" + "<th> License </th>" + "<th> Number Sold </th>" + "<th> Year </th>" + "</tr>"; 
+		for(var x = 0; x < data.length; x++){
+			   var county = data[x].COUNTY;
+			   var license = data[x].License;
+			   var numSold = data[x].NUMBER_SOLD;
+			   var year = data[x].TXNL_LICN_YEAR;
+
+		output += '<tr>' + '<td>' + county + '</td>' + '<td>' + license + '</td>' + '<td>' + numSold + '</td>' + '<td>' + year + '</td>' +'</tr>';
+
+
+
+
+		}
+		output += "</table>";
+
+		document.getElementById("output").innerHTML = output;
+        }
+    
+    </script>
+	<script>
+        function myFunction() {
+		var output2 = "<table>" + "<tr>" + "<th> County </th>" + "<th> License </th>" + "<th> Number Sold </th>" + "<th> Year </th>" + "</tr>"; 
+		var sortedData = [];
+		data.forEach(function(element){
+			if(sortedData.length == 0){
+				sortedData.push(element);
+			}
+			else{
+				if (sortedData[sortedData.length - 1].TXNL_LICN_YEAR <= element.TXNL_LICN_YEAR){
+					sortedData.push(element);
+				}else if(sortedData[0].TXNL_LICN_YEAR >= element.TXNL_LICN_YEAR){
+					sortedData.unshift(element);
+				}else{	
+					var length = sortedData.length;
+					for(var i = 1; i< length-1; i++){
+						if(sortedData[i].TXNL_LICN_YEAR >= element.TXNL_LICN_YEAR){
+							sortedData.splice(i, 0, element);
+							break;
+						}
+					}
+				}
+			}
+		});
+		sortedData.forEach(function(element){
+			   var county = element.COUNTY;
+			   var license = element.License;
+			   var numSold = element.NUMBER_SOLD;
+			   var year = element.TXNL_LICN_YEAR;
+
+		output2 += '<tr>' + '<td>' + county + '</td>' + '<td>' + license + '</td>' + '<td>' + numSold + '</td>' + '<td>' + year + '</td>' + '</tr>';
+
+
+
+
+		});
+		output2 += "</table>";
+        document.getElementById("output").innerHTML = output2;
+        }
+    </script>
+    <script>
+        function myFunction3() {
+		var output3 = "<table>" + "<tr>" + "<th> County </th>" + "<th> License </th>" + "<th> Number Sold </th>" + "<th> Year </th>" + "</tr>"; 
+		var sortedData = [];
+		data.forEach(function(element){
+			if(sortedData.length == 0){
+				sortedData.push(element);
+			}
+			else{
+				if (sortedData[sortedData.length - 1].License <= element.License){
+					sortedData.push(element);
+				}else if(sortedData[0].License >= element.License){
+					sortedData.unshift(element);
+				}else{	
+					var length = sortedData.length;
+					for(var i = 1; i< length-1; i++){
+						if(sortedData[i].License >= element.License){
+							sortedData.splice(i, 0, element);
+							break;
+						}
+					}
+				}
+			}
+		});
+		sortedData.forEach(function(element){
+			   var county = element.COUNTY;
+			   var license = element.License;
+			   var numSold = element.NUMBER_SOLD;
+			   var year = element.TXNL_LICN_YEAR;
+
+		output3 += '<tr>' + '<td>' + county + '</td>' + '<td>' + license + '</td>' + '<td>' + numSold + '</td>' + '<td>' + year + '</td>' + '</tr>';
+
+
+
+
+		});
+		output3 += "</table>";
+        document.getElementById("output").innerHTML = output3;
+        }
+    </script>
+<script>
+var cty = document.getElementById("myChart");
+var myChart = new Chart(cty, {
+    type: 'bar',
+    data: {
+        labels: [2006, 2007, 2008, 2009, 2010, 2011],
+        datasets: [{
+            label: 'Total number of Fish Licenses sold: 2006 - 2011',
+            data: (function(){
+			   var totals = {
+				   '2006': 0,
+				   '2007': 0,
+				   '2008': 0,
+				   '2009': 0,
+				   '2010': 0,
+				   '2011': 0,
+			   }
+               data.forEach(function(element){
+				   if(element.TXNL_LICN_YEAR == 2006){
+					   totals['2006'] += element.NUMBER_SOLD
+				   }else if(element.TXNL_LICN_YEAR == 2007){
+					   totals['2007'] += element.NUMBER_SOLD
+				   }else if(element.TXNL_LICN_YEAR == 2008){
+					   totals['2008'] += element.NUMBER_SOLD
+				   }else if(element.TXNL_LICN_YEAR == 2009){
+					   totals['2009'] += element.NUMBER_SOLD
+				   }else if(element.TXNL_LICN_YEAR == 2010){
+					   totals['2010'] += element.NUMBER_SOLD
+				   }else if(element.TXNL_LICN_YEAR == 2011){
+					   totals['2011'] += element.NUMBER_SOLD
+				   }
+			   })
+               return [totals['2006'],totals['2007'],totals['2008'],totals['2009'],totals['2010'],totals['2011']];
+           })(),
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.8)',
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 206, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(153, 102, 255, 0.8)',
+                'rgba(255, 159, 64, 0.8)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+<script>
+var ctx = document.getElementById("myChart2");
+var myChart2 = new Chart(ctx, {
+    type: 'pie',
+    data: {
+        labels: ["Trout", "Salmon", "Northern", "Pike", "Sunny", "Catfish", "Big Mouth Bass", "Walleye"],
+        datasets: [{
+            label: 'Total sold of each Fish License',
+            data: (function(){
+			   var totals = {
+				   'INLAND TROUT STAMP': 0,
+				   'LAKE SALMON FISHING': 0,
+				   'NORTHERN FISHING': 0,
+				   'PIKE FISHING': 0,
+				   'SUNNY FISHING': 0,
+				   'CATFISH FISHING': 0,
+                   'BIG MOUTH BASS FISHING': 0,
+                   'WALLEYE FISHING': 0,
+			   }
+               data.forEach(function(element){
+				   if(element.License == "INLAND TROUT STAMP"){
+					   totals['INLAND TROUT STAMP'] += element.NUMBER_SOLD
+				   }else if(element.License == "LAKE SALMON FISHING"){
+					   totals['LAKE SALMON FISHING'] += element.NUMBER_SOLD
+				   }else if(element.License == "NORTHERN FISHING"){
+					   totals['NORTHERN FISHING'] += element.NUMBER_SOLD
+				   }else if(element.License == "PIKE FISHING"){
+					   totals['PIKE FISHING'] += element.NUMBER_SOLD
+				   }else if(element.License == "SUNNY FISHING"){
+					   totals['SUNNY FISHING'] += element.NUMBER_SOLD
+                   }else if(element.License == "CATFISH FISHING"){
+					   totals['CATFISH FISHING'] += element.NUMBER_SOLD
+				   }else if(element.License == "BIG MOUTH BASS FISHING"){
+					   totals['BIG MOUTH BASS FISHING'] += element.NUMBER_SOLD
+				   }else if(element.License == "WALLEYE FISHING"){
+					   totals['WALLEYE FISHING'] += element.NUMBER_SOLD
+				   }
+			   })
+               return [totals['INLAND TROUT STAMP'],totals['LAKE SALMON FISHING'],totals['NORTHERN FISHING'],totals['PIKE FISHING'],totals['SUNNY FISHING'],totals['CATFISH FISHING'],totals['BIG MOUTH BASS FISHING'],totals['WALLEYE FISHING']];
+           })(),
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(0, 255, 0, 0.8)',
+                'rgba(255, 100, 86, 0.8)',
+                'rgba(75, 192, 192, 0.8)',
+                'rgba(255, 255, 64, 0.8)',
+                'rgba(153, 102, 255, 0.8)',
+                'rgba(255, 255, 255, 0.8)',
+                'rgba(255, 99, 132, 0.8)'
+            ],
+            borderColor: [
+                'rgba(54, 162, 235,1)',
+                'rgba(0, 255, 0, 1)',
+                'rgba(255, 100, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(255, 255, 64, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 255, 255, 1)',
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+    
+<!--chart2 Java Script-->
+ <script>
+var ctz = document.getElementById("myPieChart");
+var myPieChart = new Chart(ctz, {
+    type: 'pie',
+    data: {
+        labels: ["Hennepin", "Ramsey"],
+        datasets: [{
+            label: 'Total of Fish Licenses Sold by County',
+            data: (function(){
+			   var totals = {
+				   'HENNEPIN': 0,
+				   'RAMSEY': 0,
+			   }
+               data.forEach(function(element){
+				   if(element.COUNTY == "HENNEPIN"){
+					   totals['HENNEPIN'] += element.NUMBER_SOLD
+				   }else if(element.COUNTY == "RAMSEY"){
+					   totals['RAMSEY'] += element.NUMBER_SOLD
+				   }
+			   })
+               return [totals['HENNEPIN'],totals['RAMSEY']];
+           })(),
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.8)',
+                'rgba(255, 99, 132, 0.8)'
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        }
+    }
+});
+</script>
+	 <footer style="text-align: center; padding-top: 15px;">
+		<p>&copy; 2016 | Developed by Shane Meier, Jesse Valley & Chad Lofgren</p>
+     </footer>
+  </body>
+</html>
